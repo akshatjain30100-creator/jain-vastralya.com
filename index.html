@@ -137,10 +137,11 @@
                         <i class="fa-regular fa-heart text-lg"></i>
                         <span id="wishlist-count" class="absolute -top-1 -right-1 bg-gold-500 text-black text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">2</span>
                     </button>
-                    <button onclick="openBookingModal()" class="hidden sm:inline-flex items-center space-x-2 bg-gold-500/10 border border-gold-500/40 text-gold-400 hover:bg-gold-500 hover:text-black px-3.5 py-1.5 rounded-sm text-xs font-semibold uppercase tracking-wider transition-all duration-300">
+                    <!-- Book Fitting Link Button -->
+                    <a href="https://forms.gle/FHewv1YBqE8UQzM98" target="_blank" class="hidden sm:inline-flex items-center space-x-2 bg-gold-500/10 border border-gold-500/40 text-gold-400 hover:bg-gold-500 hover:text-black px-3.5 py-1.5 rounded-sm text-xs font-semibold uppercase tracking-wider transition-all duration-300">
                         <i class="fa-regular fa-calendar-check"></i>
                         <span>Book Fitting</span>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -189,7 +190,7 @@
                     <a href="#bestsellers" class="inline-flex items-center justify-center px-8 py-4 bg-gold-500 hover:bg-gold-400 text-black font-semibold text-sm tracking-wider uppercase rounded-sm transition-all duration-300 shadow-lg shadow-gold-500/20">
                         Explore New Arrivals <i class="fa-solid fa-arrow-right-long ml-3"></i>
                     </a>
-                    <a href="#tailoring" class="inline-flex items-center justify-center px-8 py-4 border border-gold-500/60 hover:bg-gold-500/10 text-gold-400 hover:text-gold-300 font-semibold text-sm tracking-wider uppercase rounded-sm transition-all duration-300 backdrop-blur-sm">
+                    <a href="https://forms.gle/FHewv1YBqE8UQzM98" target="_blank" class="inline-flex items-center justify-center px-8 py-4 border border-gold-500/60 hover:bg-gold-500/10 text-gold-400 hover:text-gold-300 font-semibold text-sm tracking-wider uppercase rounded-sm transition-all duration-300 backdrop-blur-sm">
                         Book Custom Fitting
                     </a>
                 </div>
@@ -370,9 +371,9 @@
                     </div>
 
                     <div class="pt-4">
-                        <button onclick="openBookingModal()" class="px-8 py-4 bg-gold-500 hover:bg-gold-400 text-black font-semibold text-xs tracking-widest uppercase rounded-sm transition-all shadow-lg shadow-gold-500/20 flex items-center">
+                        <a href="https://forms.gle/FHewv1YBqE8UQzM98" target="_blank" class="px-8 py-4 bg-gold-500 hover:bg-gold-400 text-black font-semibold text-xs tracking-widest uppercase rounded-sm transition-all shadow-lg shadow-gold-500/20 inline-flex items-center">
                             <i class="fa-regular fa-calendar-check mr-2 text-sm"></i> Book Tailoring Consultation
-                        </button>
+                        </a>
                     </div>
                 </div>
 
@@ -597,7 +598,7 @@
         </div>
     </footer>
 
-    <!-- Booking Modal -->
+    <!-- Booking Modal (Updated to open Google Form) -->
     <div id="booking-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden">
         <div class="bg-brand-card border border-brand-border rounded-lg max-w-lg w-full p-6 relative text-gray-200">
             <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">
@@ -828,9 +829,9 @@
             }
         }
 
-        // Booking Modal Logic
+        // Booking Modal Logic (Redirects to Google Form)
         function openBookingModal() {
-            document.getElementById('booking-modal').classList.remove('hidden');
+            window.open('https://forms.gle/FHewv1YBqE8UQzM98', '_blank');
         }
 
         function closeBookingModal() {
@@ -840,7 +841,7 @@
         function submitBooking(e) {
             e.preventDefault();
             closeBookingModal();
-            showToast("Fitting appointment booked successfully! Our team will contact you shortly.");
+            window.open('https://forms.gle/FHewv1YBqE8UQzM98', '_blank');
         }
 
         // Toast Messages
