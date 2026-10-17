@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jain Vastralya | Exclusive Men's Ethnic & Western Wear</title>
+  <link rel="icon" type="image/png" href="h.png">
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts -->
@@ -506,7 +507,7 @@
 
     <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-1">Leave Your Review</h3>
     <p class="text-xs text-gray-500 dark:text-gray-400 mb-6">Your review will be saved securely in our records. 5-star ratings will be showcased publicly.</p>
-    
+
     <form id="reviewForm" class="space-y-4">
       <div>
         <label class="block text-gray-700 dark:text-gray-300 mb-1 font-semibold text-xs uppercase">Your Name *</label>
@@ -563,7 +564,7 @@
 <footer id="contact" class="bg-gray-900 dark:bg-black text-gray-400 border-t border-gray-800 dark:border-brand-border">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-      
+
       <div class="space-y-4">
         <span class="font-serif text-2xl font-bold tracking-widest text-white uppercase block">
             Jain Vastralya
@@ -581,7 +582,7 @@
         <ul class="space-y-2.5 text-xs font-medium">
           <li><a href="#home" class="hover:text-gold-500 transition-colors">Home & Heritage</a></li>
           <li><a href="#categories" class="hover:text-gold-500 transition-colors">Men's Categories</a></li>
-          <li><a href="#bestsellers" class="hover:text-gold-500 transition-colors">Bestsellers & Pricing</a></li>
+          <li><a href="#bestsellers" class="hover:text-gold-500 transition-colors">Collections</a></li>
           <li><a href="#reviews" class="hover:text-gold-500 transition-colors">Client Reviews</a></li>
         </ul>
       </div>
@@ -802,7 +803,6 @@
           <img src="${item.image}" class="w-12 h-12 object-cover rounded">
           <div>
             <h4 class="text-xs font-bold text-gray-900 dark:text-white">${item.name}</h4>
-            <p class="text-xs text-gold-600 dark:text-gold-400">₹${item.price.toLocaleString('en-IN')}</p>
           </div>
         </div>
         <button onclick="toggleWishlist(${item.id}); renderWishlistModalItems();" class="text-red-500 hover:text-red-400 text-xs p-2">
@@ -819,7 +819,7 @@
     }
     let msg = "Hello Jain Vastralya, I am interested in inquiring about the following saved items from my wishlist:%0A";
     wishlist.forEach((item, idx) => {
-      msg += `%0A${idx + 1}. ${item.name} (₹${item.price.toLocaleString('en-IN')})`;
+      msg += `%0A${idx + 1}. ${item.name}`;
     });
     window.open(`https://wa.me/9413052930?text=${msg}`, '_blank');
   }
@@ -836,7 +836,7 @@
       const card = document.createElement('div');
       card.className = "bg-brand-lightCard dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-md overflow-hidden group hover:border-gold-500/50 transition-all duration-300 flex flex-col justify-between relative shadow-sm";
       const waMessage = encodeURIComponent(`Hello Jain Vastralya, I am interested in inquiring about "${product.name}". Please share details.`);
-      
+
       card.innerHTML = `
         <div>
             <div class="relative h-80 overflow-hidden bg-gray-200 dark:bg-brand-dark">
@@ -849,10 +849,9 @@
                 <span class="text-[10px] text-gold-600 dark:text-gold-500 font-bold uppercase tracking-widest">${product.category}</span>
                 <h3 class="font-serif text-lg font-bold text-gray-900 dark:text-white mt-1 line-clamp-1">${product.name}</h3>
                 <p class="text-xs text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">${product.description}</p>
-                <p class="font-serif text-xl font-bold text-gold-600 dark:text-gold-400 mt-3">₹${product.price.toLocaleString('en-IN')}</p>
             </div>
         </div>
-        <div class="p-5 pt-0">
+        <div class="p-5 pt-4">
             <a href="https://wa.me/9413052930?text=${waMessage}" target="_blank" class="w-full inline-flex items-center justify-center py-2.5 bg-green-600/10 border border-green-500/40 hover:bg-green-600 text-green-600 dark:text-green-400 hover:text-white text-xs font-bold uppercase tracking-wider rounded transition-all duration-300">
                 <i class="fa-brands fa-whatsapp text-sm mr-2"></i> Inquire Design
             </a>
@@ -900,7 +899,6 @@
                   <img src="${p.image}" class="w-12 h-12 object-cover rounded">
                   <div>
                       <h4 class="text-xs font-bold text-gray-900 dark:text-white">${p.name}</h4>
-                      <p class="text-xs text-gold-600 dark:text-gold-400">₹${p.price.toLocaleString('en-IN')}</p>
                   </div>
               </div>
               <a href="https://wa.me/9413052930?text=${waMsg}" target="_blank" class="px-3 py-1.5 bg-green-600 text-white text-[10px] font-bold uppercase rounded">
@@ -974,7 +972,7 @@
     try {
       const response = await fetch(REVIEW_WEB_APP_URL);
       const allReviews = await response.json();
-      
+
       const loadingText = document.getElementById('loadingText');
       if (loadingText) loadingText.style.display = 'none';
 
@@ -991,7 +989,7 @@
       fiveStarReviews.forEach(review => {
         const card = document.createElement('div');
         card.className = "bg-brand-lightCard dark:bg-brand-card/70 border border-gray-200 dark:border-brand-border p-8 rounded-2xl shadow-xl flex flex-col justify-between relative backdrop-blur-sm";
-        
+
         const nameParts = review.name.trim().split(" ");
         let initials = nameParts[0][0];
         if (nameParts.length > 1) {
