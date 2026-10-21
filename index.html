@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jain Vastralya Ajmer| Exclusive Men's Ethnic & Western Wear</title>
+  <title>Jain Vastralya | Exclusive Men's Ethnic & Western Wear</title>
   <link rel="icon" type="image/png" href="h.png">
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -40,7 +40,8 @@
           },
           fontFamily: {
             serif: ['Cormorant Garamond', 'serif'],
-            sans: ['Plus Jakarta Sans', 'sans-serif']
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            playfair: ['Playfair Display', 'serif']
           }
         }
       }
@@ -52,7 +53,6 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       -webkit-tap-highlight-color: transparent;
@@ -97,29 +97,69 @@
     }
     .glass-panel {
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
     .dark .glass-panel {
       background: rgba(22, 27, 34, 0.85);
-      border: 1px solid rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.2);
     }
     html:not(.dark) .glass-panel {
       background: rgba(255, 255, 255, 0.85);
-      border: 1px solid rgba(212, 175, 55, 0.25);
+      border: 1px solid rgba(212, 175, 55, 0.3);
     }
-    .hero-bg {
-      background: linear-gradient(to right, rgba(13, 17, 23, 0.92) 30%, rgba(13, 17, 23, 0.4)), url('h.png');
-      background-size: cover;
-      background-position: center 20%;
-      background-repeat: no-repeat;
-      width: 100%;
-      min-height: 100vh;
+
+    /* Ken Burns Zoom Animation for Slide Backgrounds */
+    @keyframes kenburns {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.08); }
+    }
+
+    .slide-bg-active {
+      animation: kenburns 8s ease-out forwards;
+    }
+
+    .btn-gold-primary {
+      background: linear-gradient(135deg, #E5C158 0%, #D4AF37 100%);
+      color: #0D0D0E;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-gold-primary:hover {
+      background: linear-gradient(135deg, #F3E5AB 0%, #E5C158 100%);
+      box-shadow: 0 6px 28px rgba(212, 175, 55, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .btn-gold-outline {
+      border: 1px solid rgba(212, 175, 55, 0.6);
+      color: #F3E5AB;
+      background: rgba(13, 13, 14, 0.4);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-gold-outline:hover {
+      border-color: #E5C158;
+      background: rgba(212, 175, 55, 0.15);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+
+    /* Watermark Brand Text */
+    .brand-watermark {
+      font-family: 'Playfair Display', serif;
+      opacity: 0.04;
+      letter-spacing: 0.05em;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
     }
   </style>
 </head>
 <body class="bg-brand-dark dark:bg-brand-dark bg-brand-lightBg text-gray-800 dark:text-gray-200 font-sans antialiased selection:bg-gold-500 selection:text-black transition-colors duration-300">
 
 <!-- Top Announcement Bar -->
-<div class="bg-gradient-to-r from-gold-700 via-gold-500 to-gold-700 text-black text-xs font-semibold py-2 px-4 text-center tracking-wider uppercase">
+<div class="bg-gradient-to-r from-gold-700 via-gold-500 to-gold-700 text-black text-xs font-semibold py-2 px-4 text-center tracking-wider uppercase z-50 relative">
   <span>✨ Festive Luxury Collection Unveiled • Visit Our Store at Main Market, Ajmer • Free Styling Consultation</span>
 </div>
 
@@ -177,6 +217,7 @@
   </div>
 </header>
 
+<!-- Mobile Drawer Navigation -->
 <div id="mobile-menu" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden transition-opacity duration-300">
   <div class="fixed inset-y-0 left-0 max-w-xs w-full bg-brand-lightCard dark:bg-brand-card p-6 shadow-2xl flex flex-col justify-between border-r border-gold-500/20">
     <div>
@@ -202,45 +243,222 @@
   </div>
 </div>
 
-<!-- Hero Banner Section -->
-<section id="home" class="relative min-h-[85vh] flex items-center hero-bg border-b border-gray-200 dark:border-brand-border/40">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
-    <div class="max-w-2xl space-y-6">
-      <div class="inline-flex items-center space-x-2 bg-gold-500/10 border border-gold-500/30 px-3 py-1 rounded-full text-gold-400 text-xs font-semibold tracking-wider uppercase">
-        <i class="fa-solid fa-crown text-xs"></i>
-        <span>Royalty Redefined for Men</span>
-      </div>
-      <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight">
-        Crafting Elegance for the <span class="gold-gradient-text">Modern Groom & Gentleman</span>
-      </h1>
-      <p class="text-gray-200 text-base sm:text-lg leading-relaxed font-light max-w-xl">
-        Discover bespoke Jodhpuri suits, handcrafted embroidered Bandhgalas, luxury Indo-Western attire, and sharp tailored formals at Jain Vastralya.
-      </p>
-      <div class="pt-4 flex flex-col sm:flex-row gap-4">
-        <a href="#bestsellers" class="inline-flex items-center justify-center px-8 py-4 bg-gold-500 hover:bg-gold-400 text-black font-semibold text-sm tracking-wider uppercase rounded-sm transition-all duration-300 shadow-lg shadow-gold-500/20">
-          Explore New Arrivals <i class="fa-solid fa-arrow-right-long ml-3"></i>
-        </a>
-        <button onclick="openBookingModal()" class="inline-flex items-center justify-center px-8 py-4 border border-gold-500/60 hover:bg-gold-500/10 text-gold-300 font-semibold text-sm tracking-wider uppercase rounded-sm transition-all duration-300 backdrop-blur-sm">
-          Book Custom Fitting
-        </button>
+<!-- MAIN HERO SLIDESHOW SECTION -->
+<section id="home" class="relative w-full h-[88vh] min-h-[620px] overflow-hidden bg-black select-none border-b border-gray-200 dark:border-brand-border/40" id="heroSlider">
+
+  <!-- Background Brand Watermark -->
+  <div class="absolute inset-0 flex items-center justify-between px-10 pointer-events-none z-10 overflow-hidden">
+    <span class="brand-watermark text-[10vw] font-bold text-white hidden lg:block select-none">RAYMOND</span>
+    <span class="brand-watermark text-[12vw] font-bold text-white select-none">SIYARAM'S</span>
+  </div>
+
+  <!-- SLIDES HOLDER -->
+  <div id="slidesContainer" class="relative w-full h-full">
+
+    <!-- SLIDE 1: Modern Groom & Royal Jodhpuri -->
+    <div class="slide-item absolute inset-0 w-full h-full opacity-100 transition-opacity duration-1000 ease-in-out z-20" data-index="0">
+      <div class="slide-bg absolute inset-0 bg-cover bg-center transition-transform duration-700 slide-bg-active"
+           style="background-image: url('https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=2000&q=80');">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60"></div>
       </div>
 
-      <div class="pt-8 grid grid-cols-3 gap-4 border-t border-gray-700/80 text-xs text-gray-300">
-        <div>
-          <p class="font-semibold text-white">100% Handcrafted</p>
-          <p class="text-gray-400">Intricate Embroidery</p>
-        </div>
-        <div>
-          <p class="font-semibold text-white">Custom Tailoring</p>
-          <p class="text-gray-400">Perfect Fit Guaranteed</p>
-        </div>
-        <div>
-          <p class="font-semibold text-white">Legacy Store</p>
-          <p class="text-gray-400">Decades of Trust</p>
+      <div class="relative max-w-7xl mx-auto h-full px-6 sm:px-12 flex flex-col justify-center items-start">
+        <div class="glass-panel p-6 sm:p-10 md:p-12 rounded-2xl max-w-2xl transform transition-all duration-700 translate-y-0 opacity-100 shadow-2xl">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold-600/20 border border-gold-600/40 mb-4">
+            <i class="fa-solid fa-crown text-gold-500 text-xs"></i>
+            <span class="text-[10px] sm:text-xs font-semibold tracking-widest uppercase text-gold-400">ROYALTY REDEFINED FOR MEN</span>
+          </div>
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-4">
+            Crafting Elegance for the <span class="gold-gradient-text block">Modern Groom & Gentleman</span>
+          </h1>
+          <p class="text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed mb-6">
+            Discover bespoke Jodhpuri suits, handcrafted embroidered Bandhgalas, luxury Indo-Western attire, and sharp tailored formals at Jain Vastralya.
+          </p>
+          <div class="flex flex-wrap items-center gap-4">
+            <a href="#bestsellers" class="btn-gold-primary px-6 py-3 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center space-x-2">
+              <span>Explore New Arrivals</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <button onclick="openBookingModal()" class="btn-gold-outline px-6 py-3 rounded-xl text-xs sm:text-sm font-semibold uppercase tracking-wider">
+              Book Custom Fitting
+            </button>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- SLIDE 2: Royal Bandhgalas & Heritage Sherwanis -->
+    <div class="slide-item absolute inset-0 w-full h-full opacity-0 pointer-events-none transition-opacity duration-1000 ease-in-out z-10" data-index="1">
+      <div class="slide-bg absolute inset-0 bg-cover bg-center transition-transform duration-700"
+           style="background-image: url('https://images.unsplash.com/photo-1598808503746-f34c53b9323e?auto=format&fit=crop&w=2000&q=80');">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60"></div>
+      </div>
+      <div class="relative max-w-7xl mx-auto h-full px-6 sm:px-12 flex flex-col justify-center items-start">
+        <div class="glass-panel p-6 sm:p-10 md:p-12 rounded-2xl max-w-2xl transform transition-all duration-700 translate-y-4 opacity-0 shadow-2xl">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold-600/20 border border-gold-600/40 mb-4">
+            <i class="fa-solid fa-gem text-gold-500 text-xs"></i>
+            <span class="text-[10px] sm:text-xs font-semibold tracking-widest uppercase text-gold-400">BESPOKE WEDDING COLLECTION</span>
+          </div>
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-4">
+            Royal Bandhgalas & <span class="gold-gradient-text block">Heritage Kothis</span>
+          </h1>
+          <p class="text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed mb-6">
+            Intricate zardozi embroidery paired with premium silk fabrics designed to make every groom stand out with unmatched grandeur.
+          </p>
+          <div class="flex flex-wrap items-center gap-4">
+            <a href="#bestsellers" onclick="filterCategory('kothis')" class="btn-gold-primary px-6 py-3 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center space-x-2">
+              <span>View Wedding Lookbook</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <button onclick="openBookingModal()" class="btn-gold-outline px-6 py-3 rounded-xl text-xs sm:text-sm font-semibold uppercase tracking-wider">
+              Stylist Consultation
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: Suiting & Custom Tailored Tuxedos -->
+    <div class="slide-item absolute inset-0 w-full h-full opacity-0 pointer-events-none transition-opacity duration-1000 ease-in-out z-10" data-index="2">
+      <div class="slide-bg absolute inset-0 bg-cover bg-center transition-transform duration-700"
+           style="background-image: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=2000&q=80');">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60"></div>
+      </div>
+      <div class="relative max-w-7xl mx-auto h-full px-6 sm:px-12 flex flex-col justify-center items-start">
+        <div class="glass-panel p-6 sm:p-10 md:p-12 rounded-2xl max-w-2xl transform transition-all duration-700 translate-y-4 opacity-0 shadow-2xl">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold-600/20 border border-gold-600/40 mb-4">
+            <i class="fa-solid fa-scissors text-gold-500 text-xs"></i>
+            <span class="text-[10px] sm:text-xs font-semibold tracking-widest uppercase text-gold-400">FINEST SUITING FABRICS</span>
+          </div>
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-4">
+            Raymond & Siyaram's <span class="gold-gradient-text block">Authorized Retailer</span>
+          </h1>
+          <p class="text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed mb-6">
+            Experience the softest wool-blends, luxury Italian fabrics, and sharp customized tuxedos crafted to perfection by master tailors.
+          </p>
+          <div class="flex flex-wrap items-center gap-4">
+            <a href="#bestsellers" onclick="filterCategory('suit')" class="btn-gold-primary px-6 py-3 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center space-x-2">
+              <span>Browse Suits Catalog</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a href="#contact" class="btn-gold-outline px-6 py-3 rounded-xl text-xs sm:text-sm font-semibold uppercase tracking-wider">
+              Visit Our Store
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Indo-Western Fusion Wear -->
+    <div class="slide-item absolute inset-0 w-full h-full opacity-0 pointer-events-none transition-opacity duration-1000 ease-in-out z-10" data-index="3">
+      <div class="slide-bg absolute inset-0 bg-cover bg-center transition-transform duration-700"
+           style="background-image: url('https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=2000&q=80');">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60"></div>
+      </div>
+      <div class="relative max-w-7xl mx-auto h-full px-6 sm:px-12 flex flex-col justify-center items-start">
+        <div class="glass-panel p-6 sm:p-10 md:p-12 rounded-2xl max-w-2xl transform transition-all duration-700 translate-y-4 opacity-0 shadow-2xl">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold-600/20 border border-gold-600/40 mb-4">
+            <i class="fa-solid fa-wand-magic-sparkles text-gold-500 text-xs"></i>
+            <span class="text-[10px] sm:text-xs font-semibold tracking-widest uppercase text-gold-400">INDO-WESTERN FUSION</span>
+          </div>
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-4">
+            Contemporary Style <span class="gold-gradient-text block">Traditional Grace</span>
+          </h1>
+          <p class="text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed mb-6">
+            Asymmetrical jackets, layered achkans, and designer kurta-pajama sets tailored for sangeet, cocktail nights, and celebrations.
+          </p>
+          <div class="flex flex-wrap items-center gap-4">
+            <a href="#bestsellers" onclick="filterCategory('coats')" class="btn-gold-primary px-6 py-3 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center space-x-2">
+              <span>Discover Coats</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a href="#lookbook" class="btn-gold-outline px-6 py-3 rounded-xl text-xs sm:text-sm font-semibold uppercase tracking-wider">
+              Customer Lookbook
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: Legacy of Quality & Trust -->
+    <div class="slide-item absolute inset-0 w-full h-full opacity-0 pointer-events-none transition-opacity duration-1000 ease-in-out z-10" data-index="4">
+      <div class="slide-bg absolute inset-0 bg-cover bg-center transition-transform duration-700"
+           style="background-image: url('https://images.unsplash.com/photo-1593032465175-481ac7f401a0?auto=format&fit=crop&w=2000&q=80');">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60"></div>
+      </div>
+      <div class="relative max-w-7xl mx-auto h-full px-6 sm:px-12 flex flex-col justify-center items-start">
+        <div class="glass-panel p-6 sm:p-10 md:p-12 rounded-2xl max-w-2xl transform transition-all duration-700 translate-y-4 opacity-0 shadow-2xl">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold-600/20 border border-gold-600/40 mb-4">
+            <i class="fa-solid fa-award text-gold-500 text-xs"></i>
+            <span class="text-[10px] sm:text-xs font-semibold tracking-widest uppercase text-gold-400">DECADES OF TRUST</span>
+          </div>
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-4">
+            Legacy of Unmatched <span class="gold-gradient-text block">Tailoring & Quality</span>
+          </h1>
+          <p class="text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed mb-6">
+            Serving generations with precision cuts, perfect fitting guarantees, and rich textile heritage. Experience the Jain Vastralya standard.
+          </p>
+          <div class="flex flex-wrap items-center gap-4">
+            <a href="#tailoring" class="btn-gold-primary px-6 py-3 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center space-x-2">
+              <span>Our Legacy Story</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a href="#contact" class="btn-gold-outline px-6 py-3 rounded-xl text-xs sm:text-sm font-semibold uppercase tracking-wider">
+              Get Directions
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
+
+  <!-- PREV / NEXT NAVIGATION BUTTONS -->
+  <button id="prevBtn" class="hidden sm:flex absolute left-6 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-gold-600/30 bg-black/40 text-gold-400 items-center justify-center hover:bg-gold-600 hover:text-black transition-all duration-300 focus:outline-none backdrop-blur-md" aria-label="Previous Slide">
+    <i class="fa-solid fa-chevron-left text-lg"></i>
+  </button>
+
+  <button id="nextBtn" class="hidden sm:flex absolute right-6 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-gold-600/30 bg-black/40 text-gold-400 items-center justify-center hover:bg-gold-600 hover:text-black transition-all duration-300 focus:outline-none backdrop-blur-md" aria-label="Next Slide">
+    <i class="fa-solid fa-chevron-right text-lg"></i>
+  </button>
+
+  <!-- BOTTOM CONTROL BAR: DOT INDICATORS & HIGHLIGHTS -->
+  <div class="absolute bottom-6 left-0 right-0 z-30 px-6 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+
+    <!-- Dynamic Dot Indicators -->
+    <div class="flex items-center space-x-3" id="dotsContainer">
+      <!-- Dots generated dynamically via JS -->
+    </div>
+
+    <!-- Highlights Bar -->
+    <div class="hidden lg:flex items-center space-x-8 text-left text-xs border-t border-gold-600/20 pt-4">
+      <div>
+        <p class="font-bold text-gold-400">100% Handcrafted</p>
+        <p class="text-gray-400 text-[11px]">Intricate Embroidery</p>
+      </div>
+      <div class="w-px h-6 bg-gold-600/20"></div>
+      <div>
+        <p class="font-bold text-gold-400">Custom Tailoring</p>
+        <p class="text-gray-400 text-[11px]">Perfect Fit Guaranteed</p>
+      </div>
+      <div class="w-px h-6 bg-gold-600/20"></div>
+      <div>
+        <p class="font-bold text-gold-400">Legacy Store</p>
+        <p class="text-gray-400 text-[11px]">Decades of Trust</p>
+      </div>
+    </div>
+
+    <!-- Slide Progress Counter -->
+    <div class="text-xs tracking-widest text-gold-400/80 font-mono">
+      <span id="currentSlideNum" class="text-gold-400 font-bold text-sm">01</span> / 05
+    </div>
+  </div>
+
 </section>
 
 <!-- Featured Categories Grid Section -->
@@ -414,7 +632,7 @@
       </div>
       <div class="relative">
         <div class="relative rounded-lg overflow-hidden border border-gray-200 dark:border-brand-border gold-border-glow shadow-2xl">
-          <img src="jv.jpg" alt="Master Craftsman Fitting" class="w-full h-[520px] object-cover">
+          <img src="jv.jpg" alt="Master Craftsman Fitting" class="w-full h-[520px] object-cover" onerror="this.src='https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=1000&q=80'">
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-8">
             <div class="glass-panel p-6 rounded-md w-full">
               <p class="font-serif text-lg text-white font-semibold italic">"A suit should not just fit your body, it should reflect your character."</p>
@@ -438,7 +656,7 @@
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
       <div class="relative group overflow-hidden rounded-md h-80 border border-gray-200 dark:border-brand-border">
-        <img src="j1.png" alt="Lookbook 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+        <img src="j1.png" alt="Lookbook 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80'">
         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-center p-4">
           <div>
             <span class="text-gold-400 text-xs font-bold uppercase tracking-wider">Bandhgalas/Jodhpuri</span>
@@ -447,7 +665,7 @@
         </div>
       </div>
       <div class="relative group overflow-hidden rounded-md h-80 border border-gray-200 dark:border-brand-border">
-        <img src="s1.jpeg" alt="Lookbook 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+        <img src="s1.jpeg" alt="Lookbook 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'">
         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-center p-4">
           <div>
             <span class="text-gold-400 text-xs font-bold uppercase tracking-wider">Reception Suit</span>
@@ -456,7 +674,7 @@
         </div>
       </div>
       <div class="relative group overflow-hidden rounded-md h-80 border border-gray-200 dark:border-brand-border">
-        <img src="k1.png" alt="Lookbook 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+        <img src="k1.png" alt="Lookbook 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1598808503746-f34c53b9323e?auto=format&fit=crop&w=800&q=80'">
         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-center p-4">
           <div>
             <span class="text-gold-400 text-xs font-bold uppercase tracking-wider">Sangeet Special</span>
@@ -465,7 +683,7 @@
         </div>
       </div>
       <div class="relative group overflow-hidden rounded-md h-80 border border-gray-200 dark:border-brand-border">
-        <img src="g3.png" alt="Lookbook 4" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+        <img src="g3.png" alt="Lookbook 4" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=800&q=80'">
         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-center p-4">
           <div>
             <span class="text-gold-400 text-xs font-bold uppercase tracking-wider">Uphaar Rishton Ka</span>
@@ -549,7 +767,7 @@
         </button>
       </div>
       <div id="wishlist-items-container" class="mt-6 space-y-4">
-        <!-- Wishlist items dynamically load honge -->
+        <!-- Wishlist items dynamically load -->
       </div>
     </div>
     <div class="pt-6 border-t border-gray-200 dark:border-brand-border">
@@ -559,68 +777,6 @@
     </div>
   </div>
 </div>
-
-<!-- Contact & Footer Section with Google Maps on Left Down -->
-<footer id="contact" class="bg-gray-900 dark:bg-black text-gray-400 border-t border-gray-800 dark:border-brand-border">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-
-      <div class="space-y-4">
-        <span class="font-serif text-2xl font-bold tracking-widest text-white uppercase block">
-            Jain Vastralya
-        </span>
-        <p class="text-xs leading-relaxed text-gray-400">
-          Premier destination for royal Rajasthani groom wear, bespoke suits, custom embroidered Bandhgalas, and designer kurta sets.
-        </p>
-        <div class="mt-4 rounded-md overflow-hidden border border-gray-700 dark:border-brand-border shadow-md">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4204.554558492801!2d74.6357618!3d26.455375900000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396be71e97b73b47%3A0x7b427ebc7e288b55!2sJain%20Vastralya!5e1!3m2!1sen!2sin!4v1791520343773!5m2!1sen!2sin" width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </div>
-      </div>
-
-      <div>
-        <h4 class="text-white font-serif text-lg font-bold mb-4 uppercase tracking-wider">Quick Navigation</h4>
-        <ul class="space-y-2.5 text-xs font-medium">
-          <li><a href="#home" class="hover:text-gold-500 transition-colors">Home & Heritage</a></li>
-          <li><a href="#categories" class="hover:text-gold-500 transition-colors">Men's Categories</a></li>
-          <li><a href="#bestsellers" class="hover:text-gold-500 transition-colors">Collections</a></li>
-          <li><a href="#reviews" class="hover:text-gold-500 transition-colors">Client Reviews</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4 class="text-white font-serif text-lg font-bold mb-4 uppercase tracking-wider">Visit Store</h4>
-        <ul class="space-y-3 text-xs">
-          <li class="flex items-start">
-            <i class="fa-solid fa-location-dot text-gold-500 mt-1 mr-3"></i>
-            <span>Main Market / Station Road, Near Clock Tower, Ajmer, Rajasthan - 305001</span>
-          </li>
-          <li class="flex items-center">
-            <i class="fa-solid fa-phone text-gold-500 mr-3"></i>
-            <span>9413052930</span>
-          </li>
-          <li class="flex items-center">
-            <i class="fa-solid fa-clock text-gold-500 mr-3"></i>
-            <span>10:30 AM – 9:00 PM (Open All Days)</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="glass-panel p-5 rounded-md border border-gray-800 dark:border-brand-border space-y-3 h-fit">
-        <h4 class="text-white font-serif text-base font-bold uppercase tracking-wider flex items-center">
-          <i class="fa-brands fa-whatsapp text-green-500 text-lg mr-2"></i> WhatsApp Consultation
-        </h4>
-        <p class="text-xs text-gray-400">Directly connect with our fashion consultant on WhatsApp for custom orders.</p>
-        <a href="https://wa.me/9413052930?text=Hello%20Jain%20Vastralya,%20I%20would%20like%20to%20enquire%20about%20your%20men's%20collection." target="_blank" class="w-full inline-flex items-center justify-center py-2.5 bg-green-600 hover:bg-green-500 text-white font-bold text-xs uppercase tracking-wider rounded-sm transition-colors">
-          Chat on WhatsApp
-        </a>
-      </div>
-
-    </div>
-    <div class="mt-12 pt-8 border-t border-gray-800 dark:border-brand-border/60 text-center text-xs text-gray-500">
-      <p>&copy; 2026 Jain Vastralya. All Rights Reserved. Crafted for Men of Substance.</p>
-    </div>
-  </div>
-</footer>
 
 <!-- Integrated Custom Fitting Booking Modal -->
 <div id="booking-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden">
@@ -682,11 +838,74 @@
   </div>
 </div>
 
-<!-- Toast Notification Container -->
+<!-- Contact & Footer Section -->
+<footer id="contact" class="bg-gray-900 dark:bg-black text-gray-400 border-t border-gray-800 dark:border-brand-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+      <div class="space-y-4">
+        <span class="font-serif text-2xl font-bold tracking-widest text-white uppercase block">
+            Jain Vastralya
+        </span>
+        <p class="text-xs leading-relaxed text-gray-400">
+          Premier destination for royal Rajasthani groom wear, bespoke suits, custom embroidered Bandhgalas, and designer kurta sets.
+        </p>
+        <div class="mt-4 rounded-md overflow-hidden border border-gray-700 dark:border-brand-border shadow-md">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4204.554558492801!2d74.6357618!3d26.455375900000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396be71e97b73b47%3A0x7b427ebc7e288b55!2sJain%20Vastralya!5e1!3m2!1sen!2sin!4v1791520343773!5m2!1sen!2sin" width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="text-white font-serif text-lg font-bold mb-4 uppercase tracking-wider">Quick Navigation</h4>
+        <ul class="space-y-2.5 text-xs font-medium">
+          <li><a href="#home" class="hover:text-gold-500 transition-colors">Home & Heritage</a></li>
+          <li><a href="#categories" class="hover:text-gold-500 transition-colors">Men's Categories</a></li>
+          <li><a href="#bestsellers" class="hover:text-gold-500 transition-colors">Collections</a></li>
+          <li><a href="#reviews" class="hover:text-gold-500 transition-colors">Client Reviews</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-white font-serif text-lg font-bold mb-4 uppercase tracking-wider">Visit Store</h4>
+        <ul class="space-y-3 text-xs">
+          <li class="flex items-start">
+            <i class="fa-solid fa-location-dot text-gold-500 mt-1 mr-3"></i>
+            <span>Main Market / Station Road, Near Clock Tower, Ajmer, Rajasthan - 305001</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fa-solid fa-phone text-gold-500 mr-3"></i>
+            <span>9413052930</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fa-solid fa-clock text-gold-500 mr-3"></i>
+            <span>10:30 AM – 9:00 PM (Open All Days)</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="glass-panel p-5 rounded-md border border-gray-800 dark:border-brand-border space-y-3 h-fit">
+        <h4 class="text-white font-serif text-base font-bold uppercase tracking-wider flex items-center">
+          <i class="fa-brands fa-whatsapp text-green-500 text-lg mr-2"></i> WhatsApp Consultation
+        </h4>
+        <p class="text-xs text-gray-400">Directly connect with our fashion consultant on WhatsApp for custom orders.</p>
+        <a href="https://wa.me/9413052930?text=Hello%20Jain%20Vastralya,%20I%20would%20like%20to%20enquire%20about%20your%20men's%20collection." target="_blank" class="w-full inline-flex items-center justify-center py-2.5 bg-green-600 hover:bg-green-500 text-white font-bold text-xs uppercase tracking-wider rounded-sm transition-colors">
+          Chat on WhatsApp
+        </a>
+      </div>
+
+    </div>
+    <div class="mt-12 pt-8 border-t border-gray-800 dark:border-brand-border/60 text-center text-xs text-gray-500">
+      <p>&copy; 2026 Jain Vastralya. All Rights Reserved. Crafted for Men of Substance.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast Container -->
 <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2"></div>
 
+<!-- JavaScript Logic -->
 <script>
-  // Dark / Light Mode Toggle Logic with Dark Priority on First Load
+  // 1. Theme Initialization
   function initTheme() {
     const savedTheme = localStorage.getItem('jain_vastralya_theme');
     const htmlRoot = document.getElementById('html-root');
@@ -696,7 +915,6 @@
       htmlRoot.classList.remove('dark');
       if (themeIcon) themeIcon.className = "fa-solid fa-moon";
     } else {
-      // Default / Priority is Dark Mode
       htmlRoot.classList.add('dark');
       if (themeIcon) themeIcon.className = "fa-solid fa-sun";
     }
@@ -717,10 +935,9 @@
     }
   }
 
-  // Run theme initialization immediately
   initTheme();
 
-  // Products Dataset
+  // 2. Products Data Array
   const products = [
     { id: 1, name: "Jet Black Jodhpuri", category: "bandhgala", image: "j1.png", description: "Heritage Jodhpuri coat with classic structured shoulders and royal fitting." },
     { id: 2, name: "Heritage Maroon & Gold Zardozi Wedding kothis", category: "kothis", image: "k1.png", description: "kothis featuring dense hand-embroidered golden threadwork." },
@@ -748,7 +965,7 @@
     { id: 24, name: "Raymonds Premium", category: "giftings", image: "g7.png", description: "The ultimate gift of style and sophistication." }
   ];
 
-  // Wishlist state management using LocalStorage
+  // Wishlist State
   let wishlist = JSON.parse(localStorage.getItem('jain_vastralya_wishlist')) || [];
 
   function updateWishlistCount() {
@@ -771,7 +988,8 @@
 
     localStorage.setItem('jain_vastralya_wishlist', JSON.stringify(wishlist));
     updateWishlistCount();
-    const activeBtn = document.querySelector('.filter-btn.bg-gold-500');
+
+    const activeBtn = document.querySelector('#filter-buttons .filter-btn.bg-gold-500');
     let currentCat = 'all';
     if (activeBtn) {
       const match = activeBtn.getAttribute('onclick')?.match(/'([^']+)'/);
@@ -800,7 +1018,7 @@
     container.innerHTML = wishlist.map(item => `
       <div class="bg-gray-100 dark:bg-brand-dark border border-gray-200 dark:border-brand-border p-3 rounded flex items-center justify-between">
         <div class="flex items-center space-x-3">
-          <img src="${item.image}" class="w-12 h-12 object-cover rounded">
+          <img src="${item.image}" class="w-12 h-12 object-cover rounded" onerror="this.src='https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=150&q=80'">
           <div>
             <h4 class="text-xs font-bold text-gray-900 dark:text-white">${item.name}</h4>
           </div>
@@ -814,7 +1032,7 @@
 
   function inquireWishlistOnWhatsApp() {
     if (wishlist.length === 0) {
-      alert("Your wishlist is empty!");
+      showToast("Your wishlist is empty!");
       return;
     }
     let msg = "Hello Jain Vastralya, I am interested in inquiring about the following saved items from my wishlist:%0A";
@@ -824,37 +1042,36 @@
     window.open(`https://wa.me/9413052930?text=${msg}`, '_blank');
   }
 
-  // Render Product Cards with Dynamic Heart Icon State
+  // Render Product Cards
   function renderProducts(filter = 'all') {
     const grid = document.getElementById('product-grid');
     if (!grid) return;
     grid.innerHTML = '';
     const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
 
-    filtered.forEach(product => {
-      const isWishlisted = wishlist.some(item => item.id === product.id);
+    filtered.forEach(p => {
+      const isWishlisted = wishlist.some(w => w.id === p.id);
       const card = document.createElement('div');
-      card.className = "bg-brand-lightCard dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-md overflow-hidden group hover:border-gold-500/50 transition-all duration-300 flex flex-col justify-between relative shadow-sm";
-      const waMessage = encodeURIComponent(`Hello Jain Vastralya, I am interested in inquiring about "${product.name}". Please share details.`);
+      card.className = "group bg-brand-lightCard dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-md overflow-hidden flex flex-col justify-between hover:border-gold-500/50 transition-all duration-300 gold-border-glow";
 
       card.innerHTML = `
         <div>
-            <div class="relative h-80 overflow-hidden bg-gray-200 dark:bg-brand-dark">
-                <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                <button onclick="toggleWishlist(${product.id})" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/60 backdrop-blur-sm border border-brand-border flex items-center justify-center text-white hover:text-gold-400 transition-colors">
-                    <i class="${isWishlisted ? 'fa-solid text-red-500' : 'fa-regular'} fa-heart text-sm"></i>
-                </button>
-            </div>
-            <div class="p-5">
-                <span class="text-[10px] text-gold-600 dark:text-gold-500 font-bold uppercase tracking-widest">${product.category}</span>
-                <h3 class="font-serif text-lg font-bold text-gray-900 dark:text-white mt-1 line-clamp-1">${product.name}</h3>
-                <p class="text-xs text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">${product.description}</p>
-            </div>
+          <div class="relative h-72 overflow-hidden bg-gray-100 dark:bg-brand-dark">
+            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80'">
+            <button onclick="toggleWishlist(${p.id})" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-white hover:text-red-500 transition-colors">
+              <i class="${isWishlisted ? 'fa-solid text-red-500' : 'fa-regular'} fa-heart text-sm"></i>
+            </button>
+          </div>
+          <div class="p-4">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-gold-600 dark:text-gold-400 block mb-1">${p.category}</span>
+            <h3 class="font-serif font-bold text-base text-gray-900 dark:text-white line-clamp-1">${p.name}</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">${p.description}</p>
+          </div>
         </div>
-        <div class="p-5 pt-4">
-            <a href="https://wa.me/9413052930?text=${waMessage}" target="_blank" class="w-full inline-flex items-center justify-center py-2.5 bg-green-600/10 border border-green-500/40 hover:bg-green-600 text-green-600 dark:text-green-400 hover:text-white text-xs font-bold uppercase tracking-wider rounded transition-all duration-300">
-                <i class="fa-brands fa-whatsapp text-sm mr-2"></i> Inquire Design
-            </a>
+        <div class="p-4 pt-0">
+          <a href="https://wa.me/9413052930?text=Hello%20Jain%20Vastralya,%20I%20would%20like%20to%20enquire%20about%20${encodeURIComponent(p.name)}" target="_blank" class="w-full py-2.5 border border-gold-500/40 hover:bg-gold-500 hover:text-black text-gold-600 dark:text-gold-400 font-bold text-[11px] uppercase tracking-wider rounded-sm transition-all flex items-center justify-center">
+            <i class="fa-brands fa-whatsapp text-sm mr-2"></i> Inquire Price
+          </a>
         </div>
       `;
       grid.appendChild(card);
@@ -862,55 +1079,29 @@
   }
 
   function filterCategory(cat) {
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.classList.remove('bg-gold-500', 'text-black');
-      btn.classList.add('bg-gray-100', 'dark:bg-brand-card', 'text-gray-700', 'dark:text-gray-300');
+    const btns = document.querySelectorAll('#filter-buttons .filter-btn');
+    btns.forEach(b => {
+      b.classList.remove('bg-gold-500', 'text-black', 'active');
+      b.classList.add('bg-gray-100', 'dark:bg-brand-card', 'text-gray-700', 'dark:text-gray-300');
     });
-    if (event && event.currentTarget) {
-      event.currentTarget.classList.remove('bg-gray-100', 'dark:bg-brand-card', 'text-gray-700', 'dark:text-gray-300');
-      event.currentTarget.classList.add('bg-gold-500', 'text-black');
-    }
+
+    event?.currentTarget?.classList?.add('bg-gold-500', 'text-black', 'active');
+    event?.currentTarget?.classList?.remove('bg-gray-100', 'dark:bg-brand-card', 'text-gray-700', 'dark:text-gray-300');
+
     renderProducts(cat);
   }
 
-  function toggleSearchModal() {
-    document.getElementById('search-modal').classList.toggle('hidden');
+  // Toast Notifications
+  function showToast(msg) {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = "bg-brand-card border border-gold-500 text-white text-xs px-4 py-3 rounded shadow-xl flex items-center space-x-2 animate-bounce";
+    toast.innerHTML = `<i class="fa-solid fa-circle-check text-gold-500"></i> <span>${msg}</span>`;
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
   }
 
-  function handleSearch() {
-    const query = document.getElementById('search-input').value.toLowerCase();
-    const resultsDiv = document.getElementById('search-results');
-
-    if (!query.trim()) {
-      resultsDiv.innerHTML = '<p class="p-4 text-xs text-gray-500 dark:text-gray-400 text-center">Type above to search our exclusive menswear catalog...</p>';
-      return;
-    }
-
-    const matches = products.filter(p => p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
-
-    if (matches.length === 0) {
-      resultsDiv.innerHTML = '<p class="p-4 text-xs text-gray-500 dark:text-gray-400 text-center">No matching garments found.</p>';
-    } else {
-      resultsDiv.innerHTML = matches.map(p => {
-        const waMsg = encodeURIComponent(`Hello Jain Vastralya, I am interested in inquiring about "${p.name}". Please share details.`);
-        return `
-          <div class="p-3 hover:bg-gray-100 dark:hover:bg-brand-dark flex items-center justify-between">
-              <div class="flex items-center space-x-3">
-                  <img src="${p.image}" class="w-12 h-12 object-cover rounded">
-                  <div>
-                      <h4 class="text-xs font-bold text-gray-900 dark:text-white">${p.name}</h4>
-                  </div>
-              </div>
-              <a href="https://wa.me/9413052930?text=${waMsg}" target="_blank" class="px-3 py-1.5 bg-green-600 text-white text-[10px] font-bold uppercase rounded">
-                  Inquire
-              </a>
-          </div>
-        `;
-      }).join('');
-    }
-  }
-
-  // Booking Modal Controls
+  // Modals Controller
   function openBookingModal() {
     document.getElementById('booking-modal').classList.remove('hidden');
   }
@@ -919,7 +1110,6 @@
     document.getElementById('booking-modal').classList.add('hidden');
   }
 
-  // Review Modal Controls
   function openReviewModal() {
     document.getElementById('review-modal').classList.remove('hidden');
   }
@@ -928,175 +1118,163 @@
     document.getElementById('review-modal').classList.add('hidden');
   }
 
-  // Google Sheets Web App Connection Script for Bookings
-  const BOOKING_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzbdLV81UEjKGlrX-kwmyJUMYJJt-53N1z1XMz4BbXs2tBsFV_YgLP774vZZaJFnhEwYw/exec";
-
-  document.getElementById('consultationForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const submitBtn = document.getElementById('bookingSubmitBtn');
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Submitting Request...";
-
-    const formData = {
-      name: document.getElementById('booking-name').value,
-      phone: document.getElementById('booking-phone').value,
-      date: document.getElementById('booking-date').value,
-      consultationType: document.getElementById('booking-type').value,
-      requirements: document.getElementById('booking-requirements').value
-    };
-
-    try {
-      await fetch(BOOKING_WEB_APP_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-
-      showToast("Appointment successfully booked and synced!");
-      document.getElementById('consultationForm').reset();
-      closeBookingModal();
-    } catch (error) {
-      alert('Something went wrong. Please try again.');
-      console.error(error);
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Confirm Appointment Request";
-    }
-  });
-
-  // Google Sheets Web App Connection Script for Reviews
-  const REVIEW_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwMh3PWpen4GOIRDoVaYiELB6ug5WbcvkBXD4l71BIbCaJU18DzI6B3jpMmsO_P69yXsQ/exec";
-
-  async function fetchReviews() {
-    try {
-      const response = await fetch(REVIEW_WEB_APP_URL);
-      const allReviews = await response.json();
-
-      const loadingText = document.getElementById('loadingText');
-      if (loadingText) loadingText.style.display = 'none';
-
-      const fiveStarReviews = allReviews.filter(review => Number(review.rating) === 5);
-      const container = document.getElementById('reviewsList');
-      if (!container) return;
-      container.innerHTML = "";
-
-      if (fiveStarReviews.length === 0) {
-        container.innerHTML = "<p class='text-xs text-gray-500 dark:text-gray-400 col-span-full text-center'>No 5-star reviews found yet.</p>";
-        return;
-      }
-
-      fiveStarReviews.forEach(review => {
-        const card = document.createElement('div');
-        card.className = "bg-brand-lightCard dark:bg-brand-card/70 border border-gray-200 dark:border-brand-border p-8 rounded-2xl shadow-xl flex flex-col justify-between relative backdrop-blur-sm";
-
-        const nameParts = review.name.trim().split(" ");
-        let initials = nameParts[0][0];
-        if (nameParts.length > 1) {
-          initials += nameParts[nameParts.length - 1][0];
-        }
-        initials = initials.toUpperCase();
-
-        card.innerHTML = `
-          <div>
-            <div class="flex items-center space-x-1.5 text-gold-500 text-base mb-6">
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-            </div>
-            <p class="font-serif text-gray-700 dark:text-gray-200 text-base sm:text-lg italic leading-relaxed mb-8">"${review.comment}"</p>
-          </div>
-          <div>
-            <div class="w-full h-[1px] bg-gray-200 dark:border-brand-border mb-6"></div>
-            <div class="flex items-center space-x-4">
-              <div class="w-12 h-12 rounded-full bg-gold-500/20 border border-gold-500/50 flex items-center justify-center text-gold-600 dark:text-gold-400 font-bold font-serif text-base">
-                ${initials}
-              </div>
-              <div>
-                <h4 class="font-serif text-gray-900 dark:text-white font-bold text-base tracking-wide">${review.name}</h4>
-                <p class="text-xs text-gold-600 dark:text-gold-500 tracking-wider uppercase font-semibold mt-0.5">Verified Patron</p>
-              </div>
-            </div>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    } catch (error) {
-      console.error("Error fetching reviews:", error);
-      const loadingText = document.getElementById('loadingText');
-      if (loadingText) loadingText.textContent = "Failed to load reviews.";
-    }
+  function toggleSearchModal() {
+    document.getElementById('search-modal').classList.toggle('hidden');
   }
 
-  document.getElementById('reviewForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const submitBtn = document.getElementById('reviewSubmitBtn');
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Submitting Review...";
-
-    const formData = {
-      name: document.getElementById('review-name').value,
-      email: document.getElementById('review-email').value,
-      rating: Number(document.getElementById('review-rating').value),
-      comment: document.getElementById('review-comment').value
-    };
-
-    try {
-      await fetch(REVIEW_WEB_APP_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-
-      showToast("Review submitted successfully! Saved to records.");
-      document.getElementById('reviewForm').reset();
-      closeReviewModal();
-      setTimeout(fetchReviews, 3000);
-    } catch (error) {
-      alert('Something went wrong. Please try again.');
-      console.error(error);
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Submit Review";
+  function handleSearch() {
+    const val = document.getElementById('search-input').value.toLowerCase();
+    const res = document.getElementById('search-results');
+    if (!val) {
+      res.innerHTML = '<p class="p-4 text-xs text-gray-500 text-center">Type above to search our catalog...</p>';
+      return;
     }
-  });
-
-  function showToast(message) {
-    const container = document.getElementById('toast-container');
-    const toast = document.createElement('div');
-    toast.className = "bg-brand-lightCard dark:bg-brand-card border border-gold-500 text-gray-900 dark:text-white text-xs px-4 py-3 rounded shadow-xl flex items-center space-x-2";
-    toast.innerHTML = `<i class="fa-solid fa-circle-check text-gold-500"></i> <span>${message}</span>`;
-    container.appendChild(toast);
-    setTimeout(() => toast.remove(), 4000);
+    const matches = products.filter(p => p.name.toLowerCase().includes(val) || p.category.toLowerCase().includes(val));
+    if (matches.length === 0) {
+      res.innerHTML = '<p class="p-4 text-xs text-gray-500 text-center">No matching designs found.</p>';
+      return;
+    }
+    res.innerHTML = matches.map(p => `
+      <div class="p-3 flex items-center justify-between hover:bg-gold-500/10 transition-colors">
+        <div class="flex items-center space-x-3">
+          <img src="${p.image}" class="w-10 h-10 object-cover rounded" onerror="this.src='https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=100&q=80'">
+          <div>
+            <h4 class="text-xs font-bold text-gray-900 dark:text-white">${p.name}</h4>
+            <span class="text-[10px] text-gold-500 uppercase">${p.category}</span>
+          </div>
+        </div>
+        <a href="https://wa.me/9413052930?text=Inquiring%20about%20${encodeURIComponent(p.name)}" target="_blank" class="text-xs text-gold-500 font-bold hover:underline">
+          Inquire <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    `).join('');
   }
 
-  // Mobile Menu Drawer
-  document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-    document.getElementById('mobile-menu').classList.remove('hidden');
-  });
-
-  document.getElementById('close-mobile-menu').addEventListener('click', () => {
-    document.getElementById('mobile-menu').classList.add('hidden');
-  });
-
-  document.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      document.getElementById('mobile-menu').classList.add('hidden');
-    });
-  });
-
-  // Set min date to today for consultation booking
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('booking-date').min = today;
-
-  window.onload = function() {
+  // 3. Hero Slideshow Engine Initialization
+  document.addEventListener('DOMContentLoaded', () => {
+    // Initial Render
     renderProducts('all');
-    fetchReviews();
     updateWishlistCount();
-  }
+
+    // Mobile Menu Toggles
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const closeMobileBtn = document.getElementById('close-mobile-menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuBtn?.addEventListener('click', () => mobileMenu.classList.remove('hidden'));
+    closeMobileBtn?.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    // Hero Slideshow Dynamic Logic
+    const slides = document.querySelectorAll('.slide-item');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsContainer = document.getElementById('dotsContainer');
+    const slideNumDisplay = document.getElementById('currentSlideNum');
+    const slider = document.getElementById('heroSlider');
+
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    let slideInterval;
+    const autoPlayDelay = 5500;
+
+    // Create Slide Navigation Dots
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('button');
+      dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+      dot.className = `w-8 h-1.5 rounded-full transition-all duration-300 ${i === 0 ? 'bg-gold-500 w-12' : 'bg-gray-600/60 hover:bg-gold-500/50'}`;
+      dot.addEventListener('click', () => goToSlide(i));
+      dotsContainer?.appendChild(dot);
+    }
+
+    const dots = dotsContainer?.querySelectorAll('button') || [];
+
+    function goToSlide(index) {
+      if (index === currentIndex) return;
+
+      const prevSlide = slides[currentIndex];
+      const prevCard = prevSlide.querySelector('.glass-panel');
+      const prevBg = prevSlide.querySelector('.slide-bg');
+
+      prevSlide.classList.remove('opacity-100', 'z-20');
+      prevSlide.classList.add('opacity-0', 'pointer-events-none', 'z-10');
+      if (prevCard) {
+        prevCard.classList.remove('translate-y-0', 'opacity-100');
+        prevCard.classList.add('translate-y-4', 'opacity-0');
+      }
+      if (prevBg) prevBg.classList.remove('slide-bg-active');
+
+      currentIndex = (index + totalSlides) % totalSlides;
+      const nextSlide = slides[currentIndex];
+      const nextCard = nextSlide.querySelector('.glass-panel');
+      const nextBg = nextSlide.querySelector('.slide-bg');
+
+      nextSlide.classList.remove('opacity-0', 'pointer-events-none', 'z-10');
+      nextSlide.classList.add('opacity-100', 'z-20');
+
+      setTimeout(() => {
+        if (nextCard) {
+          nextCard.classList.remove('translate-y-4', 'opacity-0');
+          nextCard.classList.add('translate-y-0', 'opacity-100');
+        }
+        if (nextBg) nextBg.classList.add('slide-bg-active');
+      }, 50);
+
+      dots.forEach((dot, idx) => {
+        if (idx === currentIndex) {
+          dot.className = 'w-12 h-1.5 rounded-full bg-gold-500 transition-all duration-300';
+        } else {
+          dot.className = 'w-8 h-1.5 rounded-full bg-gray-600/60 hover:bg-gold-500/50 transition-all duration-300';
+        }
+      });
+
+      if (slideNumDisplay) slideNumDisplay.textContent = String(currentIndex + 1).padStart(2, '0');
+      resetAutoPlay();
+    }
+
+    function nextSlide() { goToSlide(currentIndex + 1); }
+    function prevSlide() { goToSlide(currentIndex - 1); }
+
+    nextBtn?.addEventListener('click', nextSlide);
+    prevBtn?.addEventListener('click', prevSlide);
+
+    // Touch Swiping Support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    slider?.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    slider?.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchEndX < touchStartX - 50) nextSlide();
+      if (touchEndX > touchStartX + 50) prevSlide();
+    }, { passive: true });
+
+    // Keyboard Arrow Controls
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    function startAutoPlay() {
+      slideInterval = setInterval(nextSlide, autoPlayDelay);
+    }
+
+    function resetAutoPlay() {
+      clearInterval(slideInterval);
+      startAutoPlay();
+    }
+
+    slider?.addEventListener('mouseenter', () => clearInterval(slideInterval));
+    slider?.addEventListener('mouseleave', startAutoPlay);
+
+    startAutoPlay();
+  });
 </script>
 </body>
 </html>
