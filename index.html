@@ -154,6 +154,22 @@
       user-select: none;
       white-space: nowrap;
     }
+    /*cursor*/
+    .shirt-btn {
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #2b2b2b;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      
+      /* कस्टम कर्सर CSS */
+      cursor: url('shirt-button.png'), pointer;
+    }
+
+    .shirt-btn:hover {
+      background-color: #4a4a4a;
+    }
   </style>
 </head>
 <body class="bg-brand-dark dark:bg-brand-dark bg-brand-lightBg text-gray-800 dark:text-gray-200 font-sans antialiased selection:bg-gold-500 selection:text-black transition-colors duration-300">
@@ -1060,7 +1076,7 @@
             </button>
           </div>
           <div class="p-4">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-gold-600 dark:text-gold-400 block mb-1">${p.category}</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-white-600 dark:text-green-400 block mb-1">${p.category}</span>
             <h3 class="font-serif font-bold text-base text-gray-900 dark:text-white line-clamp-1">${p.name}</h3>
             <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">${p.description}</p>
           </div>
