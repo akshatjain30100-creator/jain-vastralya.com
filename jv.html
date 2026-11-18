@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Jain Vastralya | Mobile App Experience</title>
+  <link rel="icon" type="image/png" href="h.png">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              400: '#E5C158',
+              500: '#D4AF37',
+              600: '#AA820A',
+              700: '#856404'
+            },
+            brand: {
+              lightBg: '#F8F9FA',
+              lightCard: '#FFFFFF',
+              lightBorder: '#E2E8F0',
+              cream: '#F4EFEA',
+              gold: '#D4AF37',
+              amber: '#C59B27'
+            },
+            pageBg: '#FAFAF9',
+            charcoal: '#1C1917',
+            slateText: '#57534E',
+            whatsapp: '#16A34A',
+            whatsappHover: '#15803D',
+          },
+          fontFamily: {
+            serif: ['Cormorant Garamond', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            playfair: ['Playfair Display', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html, body {
+      background-color: #0f0e0e !important;
+      color: #1C1917 !important;
+      height: 100%;
+      overflow: hidden;
+    }
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: #F8F9FA; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #FFF0C1 0%, #D4AF37 50%, #9A7B1C 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gold-border-glow { box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
+    .glass-panel {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.90);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+    }
+    .btn-gold-primary {
+      background: linear-gradient(135deg, #E5C158 0%, #D4AF37 100%);
+      color: #0D0D0E;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-gold-primary:hover {
+      background: linear-gradient(135deg, #F3E5AB 0%, #E5C158 100%);
+      transform: translateY(-1px);
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .zoomed {
+      transform: scale(1.75);
+      cursor: zoom-out !important;
+      transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+  </style>
+</head>
+<body class="flex justify-center items-center h-full bg-[#0f0e0e]">
+
+  <!-- Mobile App Frame Container -->
+  <div class="w-full max-w-md h-full sm:h-[92vh] sm:max-h-[920px] sm:rounded-3xl bg-brand-lightBg flex flex-col relative shadow-2xl overflow-hidden border border-amber-500/30">
+
+    <!-- TOP APP HEADER -->
+    <header class="sticky top-0 z-40 bg-brand-lightCard/95 backdrop-blur-md border-b border-gray-200 px-4 py-3 flex items-center justify-between shrink-0">
+      <div class="flex items-center space-x-2">
+        <div class="w-8 h-8 rounded-full bg-amber-600 text-white flex items-center justify-center font-serif font-bold text-sm shadow">
+          JV
+        </div>
+        <div>
+          <h1 class="font-serif text-base font-bold text-gray-900 leading-tight">Jain Vastralya</h1>
+          <p class="text-[9px] uppercase tracking-widest text-amber-600 font-semibold">Ajmer &bull; Men's Couture</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <button onclick="switchTab('wishlist')" class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:text-amber-600 relative transition" title="Wishlist">
+          <i class="fa-regular fa-heart text-sm"></i>
+          <span id="app-wishlist-badge" class="absolute -top-1 -right-1 bg-amber-500 text-black text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+        </button>
+        <button onclick="toggleSearchModal()" class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:text-amber-600 transition" title="Search">
+          <i class="fa-solid fa-magnifying-glass text-sm"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- APP SCROLLABLE BODY AREA -->
+    <main id="app-body-container" class="flex-1 overflow-y-auto relative pb-24">
+
+      <!-- ================= TAB 1: HOME ================= -->
+      <div id="tab-home" class="tab-content active space-y-6 pb-6">
+        <!-- Festive Banner -->
+        <div class="bg-gradient-to-r from-amber-800 via-amber-600 to-amber-800 text-white text-[11px] font-semibold py-2 px-3 text-center tracking-wider uppercase">
+          ✨ Festive Luxury • Store at Main Market, Ajmer • Free Fitting
+        </div>
+
+        <!-- Hero Carousel / Banner -->
+        <div class="relative mx-4 mt-3 rounded-2xl overflow-hidden shadow-lg h-72 bg-black">
+          <div class="absolute inset-0 bg-cover bg-center transition-all duration-700" style="background-image: url('https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=1000&q=80');">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20"></div>
+          </div>
+          <div class="absolute inset-0 p-6 flex flex-col justify-end text-white">
+            <span class="text-[10px] uppercase font-bold tracking-widest text-amber-400 bg-amber-900/60 px-2.5 py-1 rounded-full w-fit mb-2 border border-amber-500/40">Groom & Royal Wear</span>
+            <h2 class="font-serif text-2xl font-bold leading-tight mb-1">Crafting Elegance for Gentlemen</h2>
+            <p class="text-xs text-gray-200 line-clamp-2 mb-4">Discover bespoke Jodhpuri suits, Bandhgalas, and luxury Indo-Western attire.</p>
+            <div class="flex gap-2">
+              <button onclick="switchTab('collections')" class="btn-gold-primary px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider">
+                Explore Catalog
+              </button>
+              <button onclick="openBookingModal()" class="px-4 py-2 rounded-xl bg-white/20 backdrop-blur-md text-white text-xs font-semibold uppercase tracking-wider border border-white/30">
+                Book Fitting
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Action Grid -->
+        <div class="px-4">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-serif text-lg font-bold text-gray-900">Quick Categories</h3>
+            <button onclick="switchTab('categories')" class="text-xs text-amber-600 font-bold uppercase">View All</button>
+          </div>
+          <div class="grid grid-cols-4 gap-3 text-center">
+            <div onclick="switchTab('collections'); filterCategory('bandhgala');" class="bg-white p-3 rounded-2xl border border-gray-200 shadow-xs flex flex-col items-center cursor-pointer hover:border-amber-500 transition">
+              <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center text-lg mb-1 shadow-inner">
+                <i class="fa-solid fa-vest"></i>
+              </div>
+              <span class="text-[11px] font-bold text-gray-800">Bandhgala</span>
+            </div>
+            <div onclick="switchTab('collections'); filterCategory('kothis');" class="bg-white p-3 rounded-2xl border border-gray-200 shadow-xs flex flex-col items-center cursor-pointer hover:border-amber-500 transition">
+              <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center text-lg mb-1 shadow-inner">
+                <i class="fa-solid fa-crown"></i>
+              </div>
+              <span class="text-[11px] font-bold text-gray-800">Kothis</span>
+            </div>
+            <div onclick="switchTab('collections'); filterCategory('suit');" class="bg-white p-3 rounded-2xl border border-gray-200 shadow-xs flex flex-col items-center cursor-pointer hover:border-amber-500 transition">
+              <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center text-lg mb-1 shadow-inner">
+                <i class="fa-solid fa-user-tie"></i>
+              </div>
+              <span class="text-[11px] font-bold text-gray-800">Suits</span>
+            </div>
+            <div onclick="switchTab('collections'); filterCategory('giftings');" class="bg-white p-3 rounded-2xl border border-gray-200 shadow-xs flex flex-col items-center cursor-pointer hover:border-amber-500 transition">
+              <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center text-lg mb-1 shadow-inner">
+                <i class="fa-solid fa-gift"></i>
+              </div>
+              <span class="text-[11px] font-bold text-gray-800">Gifting</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Bestsellers Preview -->
+        <div class="px-4">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-serif text-lg font-bold text-gray-900">Featured Masterpieces</h3>
+            <button onclick="switchTab('collections')" class="text-xs text-amber-600 font-bold uppercase">See All</button>
+          </div>
+          <div class="grid grid-cols-2 gap-3" id="home-featured-grid">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <!-- Bespoke Tailoring Promo Card -->
+        <div class="mx-4 bg-gradient-to-br from-charcoal to-zinc-900 text-white rounded-2xl p-5 shadow-xl relative overflow-hidden">
+          <div class="relative z-10 space-y-2">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-400 bg-amber-900/50 px-2.5 py-0.5 rounded border border-amber-500/30">Master Craftsmanship</span>
+            <h3 class="font-serif text-xl font-bold">Custom Fitting & Bespoke Suits</h3>
+            <p class="text-xs text-gray-300">Book an appointment with our master tailors for custom measurements in Ajmer.</p>
+            <button onclick="openBookingModal()" class="mt-2 btn-gold-primary px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider inline-flex items-center">
+              <i class="fa-regular fa-calendar-check mr-2"></i> Book Appointment
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= TAB 2: CATEGORIES ================= -->
+      <div id="tab-categories" class="tab-content px-4 py-4 space-y-4">
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-gray-900">Explore Categories</h2>
+          <p class="text-xs text-gray-500">Browse our curated collection by garment type.</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4" id="categories-list-container">
+          <!-- Dynamically populated or static cards -->
+          <div onclick="switchTab('collections'); filterCategory('bandhgala');" class="relative h-44 rounded-2xl overflow-hidden shadow-md cursor-pointer group">
+            <img src="j1.png" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80'">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-4 flex flex-col justify-end">
+              <span class="text-[10px] text-amber-400 font-bold uppercase">Royal Collection</span>
+              <h3 class="font-serif text-xl font-bold text-white">Bandhgalas & Jodhpuris</h3>
+            </div>
+          </div>
+          <div onclick="switchTab('collections'); filterCategory('kothis');" class="relative h-44 rounded-2xl overflow-hidden shadow-md cursor-pointer group">
+            <img src="k1.png" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1598808503746-f34c53b9323e?auto=format&fit=crop&w=800&q=80'">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-4 flex flex-col justify-end">
+              <span class="text-[10px] text-amber-400 font-bold uppercase">Groom Special</span>
+              <h3 class="font-serif text-xl font-bold text-white">Wedding Kothis</h3>
+            </div>
+          </div>
+          <div onclick="switchTab('collections'); filterCategory('suit');" class="relative h-44 rounded-2xl overflow-hidden shadow-md cursor-pointer group">
+            <img src="s1.jpeg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-4 flex flex-col justify-end">
+              <span class="text-[10px] text-amber-400 font-bold uppercase">Gentleman's Choice</span>
+              <h3 class="font-serif text-xl font-bold text-white">Bespoke Suits & Tuxedos</h3>
+            </div>
+          </div>
+          <div onclick="switchTab('collections'); filterCategory('giftings');" class="relative h-44 rounded-2xl overflow-hidden shadow-md cursor-pointer group">
+            <img src="g3.png" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=800&q=80'">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-4 flex flex-col justify-end">
+              <span class="text-[10px] text-amber-400 font-bold uppercase">Uphaar Rishton Ka</span>
+              <h3 class="font-serif text-xl font-bold text-white">Gift Packs</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= TAB 3: COLLECTIONS / CATALOG ================= -->
+      <div id="tab-collections" class="tab-content px-4 py-4 space-y-4">
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-gray-900">Curated Collections</h2>
+          <p class="text-xs text-gray-500">Browse all available menswear designs.</p>
+        </div>
+
+        <!-- Filter Buttons Bar -->
+        <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-none" id="filter-buttons">
+          <button onclick="filterCategory('all')" class="filter-btn active bg-amber-500 text-black px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shadow-xs">All Items</button>
+          <button onclick="filterCategory('kothis')" class="filter-btn bg-white text-gray-700 border border-gray-200 px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Kothis</button>
+          <button onclick="filterCategory('bandhgala')" class="filter-btn bg-white text-gray-700 border border-gray-200 px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Bandhgalas</button>
+          <button onclick="filterCategory('kurta')" class="filter-btn bg-white text-gray-700 border border-gray-200 px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Kurta Sets</button>
+          <button onclick="filterCategory('suit')" class="filter-btn bg-white text-gray-700 border border-gray-200 px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Suits & Tuxedos</button>
+          <button onclick="filterCategory('Formals')" class="filter-btn bg-white text-gray-700 border border-gray-200 px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Formals</button>
+          <button onclick="filterCategory('Safari Suits')" class="filter-btn bg-white text-gray-700 border border-gray-200 px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Safari Suits</button>
+          <button onclick="filterCategory('giftings')" class="filter-btn bg-white text-gray-700 border border-gray-200 px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Gifting</button>
+          <button onclick="filterCategory('coats')" class="filter-btn bg-white text-gray-700 border border-gray-200 px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">Coats</button>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="grid grid-cols-2 gap-3" id="product-grid"></div>
+      </div>
+
+      <!-- ================= TAB 4: WISHLIST ================= -->
+      <div id="tab-wishlist" class="tab-content px-4 py-4 space-y-4">
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-gray-900">Your Luxury Wishlist</h2>
+          <p class="text-xs text-gray-500">Saved garments for quick inquiry.</p>
+        </div>
+        <div id="wishlist-items-container" class="space-y-3">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+
+      <!-- ================= TAB 5: BESPOKE & CONTACT ================= -->
+      <div id="tab-account" class="tab-content px-4 py-4 space-y-6 pb-10">
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-gray-900">Store & Bespoke Tailoring</h2>
+          <p class="text-xs text-gray-500">Connect with Jain Vastralya in Ajmer.</p>
+        </div>
+
+        <!-- Appointment Card -->
+        <div class="bg-white rounded-2xl p-4 border border-gray-200 shadow-xs space-y-3">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold">
+              <i class="fa-regular fa-calendar-check text-lg"></i>
+            </div>
+            <div>
+              <h3 class="font-serif font-bold text-gray-900">Book Custom Fitting</h3>
+              <p class="text-[11px] text-gray-500">Store visit or home consultation</p>
+            </div>
+          </div>
+          <button onclick="openBookingModal()" class="w-full py-2.5 bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs uppercase tracking-wider rounded-xl transition shadow-xs">
+            Book Appointment Now
+          </button>
+        </div>
+
+        <!-- Store Info & Map -->
+        <div class="bg-white rounded-2xl p-4 border border-gray-200 shadow-xs space-y-3">
+          <h3 class="font-serif font-bold text-gray-900 text-base">Visit Our Flagship Store</h3>
+          <ul class="space-y-2 text-xs text-gray-600">
+            <li class="flex items-start">
+              <i class="fa-solid fa-location-dot text-amber-600 mt-0.5 mr-2.5"></i>
+              <span>Sanjay Market, Cinema Road Parao, (Station Road, Near Clock Tower) Ajmer, Rajasthan - 305001</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fa-solid fa-phone text-amber-600 mr-2.5"></i>
+              <span>9413052930</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fa-solid fa-clock text-amber-600 mr-2.5"></i>
+              <span>10:00 AM – 9:00 PM (Open All Days)</span>
+            </li>
+          </ul>
+
+          <div class="rounded-xl overflow-hidden border border-gray-200 mt-2 shadow-xs">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4204.554558492801!2d74.6357618!3d26.455375900000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396be71e97b73b47%3A0x7b427ebc7e288b55!2sJain%20Vastralya!5e1!3m2!1sen!2sin!4v1791520343773!5m2!1sen!2sin" width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+
+          <a href="https://wa.me/919413052930?text=Hello%20Jain%20Vastralya,%20I%20would%20like%20to%20enquire%20about%20your%20men's%20collection." target="_blank" class="w-full py-3 bg-[#16A34A] hover:bg-[#15803D] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition flex items-center justify-center space-x-2 shadow-sm">
+            <i class="fa-brands fa-whatsapp text-base"></i>
+            <span>Chat on WhatsApp</span>
+          </a>
+        </div>
+
+        <!-- Client Reviews Section in Account/More tab -->
+        <div class="bg-white rounded-2xl p-4 border border-gray-200 shadow-xs space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="font-serif font-bold text-gray-900 text-base">Client Experiences</h3>
+            <button onclick="openReviewModal()" class="text-xs text-amber-600 font-bold uppercase">Write Review</button>
+          </div>
+          <div id="reviewsList" class="space-y-3">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- BOTTOM APP NAVIGATION BAR -->
+    <nav class="absolute bottom-0 inset-x-0 bg-white border-t border-gray-200 px-3 py-2 flex items-center justify-around z-40 shadow-lg">
+      <button onclick="switchTab('home')" class="nav-tab-btn flex flex-col items-center text-amber-600 space-y-1 transition" data-tab="home">
+        <i class="fa-solid fa-house text-lg"></i>
+        <span class="text-[10px] font-bold">Home</span>
+      </button>
+      <button onclick="switchTab('categories')" class="nav-tab-btn flex flex-col items-center text-gray-400 space-y-1 transition" data-tab="categories">
+        <i class="fa-solid fa-layer-group text-lg"></i>
+        <span class="text-[10px] font-semibold">Categories</span>
+      </button>
+      <button onclick="switchTab('collections')" class="nav-tab-btn flex flex-col items-center text-gray-400 space-y-1 transition" data-tab="collections">
+        <i class="fa-solid fa-shirt text-lg"></i>
+        <span class="text-[10px] font-semibold">Collections</span>
+      </button>
+      <button onclick="switchTab('wishlist')" class="nav-tab-btn flex flex-col items-center text-gray-400 space-y-1 transition relative" data-tab="wishlist">
+        <i class="fa-solid fa-heart text-lg"></i>
+        <span class="text-[10px] font-semibold">Wishlist</span>
+      </button>
+      <button onclick="switchTab('account')" class="nav-tab-btn flex flex-col items-center text-gray-400 space-y-1 transition" data-tab="account">
+        <i class="fa-solid fa-user-gear text-lg"></i>
+        <span class="text-[10px] font-semibold">Store / Bespoke</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- PRODUCT DETAIL POPUP MODAL -->
+  <div id="product-detail-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto" onclick="if(event.target.id==='product-detail-modal') closeProductModal()">
+    <div class="relative w-full max-w-lg bg-white rounded-3xl border border-slate-200 shadow-2xl my-auto max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+      <div class="sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-4 py-3.5 flex items-center justify-between rounded-t-3xl">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-charcoal text-white flex items-center justify-center font-serif font-bold text-xs">JV</div>
+          <div>
+            <span class="font-serif font-bold text-sm text-charcoal block leading-none">Jain Vastralya</span>
+            <span class="text-[9px] uppercase tracking-widest text-slateText font-medium">Garment Details</span>
+          </div>
+        </div>
+        <button type="button" onclick="closeProductModal()" class="p-2 rounded-xl bg-slate-100 text-charcoal">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div id="product-modal-body" class="p-4 space-y-4"></div>
+    </div>
+  </div>
+
+  <!-- FULLSCREEN LIGHTBOX MODAL -->
+  <div id="lightbox-modal" class="fixed inset-0 z-[60] bg-black/95 backdrop-blur-md hidden items-center justify-center p-4" onclick="if(event.target.id==='lightbox-modal') closeLightbox()">
+    <div class="absolute top-4 inset-x-4 flex items-center justify-between z-10">
+      <div class="text-white text-xs font-medium">
+        <span id="lightbox-title" class="font-serif">Preview</span>
+      </div>
+      <button type="button" onclick="closeLightbox()" class="p-2 rounded-xl bg-white/20 text-white">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+    <div class="relative max-w-lg max-h-[80vh] w-full flex items-center justify-center overflow-hidden rounded-2xl">
+      <img id="lightbox-img" src="" alt="Zoom preview" onclick="toggleLightboxZoom(event)" class="max-h-[75vh] max-w-full object-contain rounded-xl select-none" />
+    </div>
+  </div>
+
+  <!-- REVIEW MODAL -->
+  <div id="review-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-5 relative shadow-2xl space-y-4">
+      <button onclick="closeReviewModal()" class="absolute top-4 right-4 text-gray-500"><i class="fa-solid fa-xmark text-lg"></i></button>
+      <h3 class="font-serif text-xl font-bold text-gray-900">Write a Review</h3>
+      <form id="reviewForm" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Your Name *</label>
+          <input type="text" id="review-name" required placeholder="Full Name" class="w-full border border-gray-300 rounded-xl p-2.5 focus:outline-none focus:border-amber-500">
+        </div>
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Rating *</label>
+          <select id="review-rating" class="w-full border border-gray-300 rounded-xl p-2.5 focus:outline-none focus:border-amber-500">
+            <option value="5">★★★★★ (5 Stars)</option>
+            <option value="4">★★★★☆ (4 Stars)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Your Feedback *</label>
+          <textarea id="review-comment" rows="3" required placeholder="Describe your experience..." class="w-full border border-gray-300 rounded-xl p-2.5 focus:outline-none focus:border-amber-500"></textarea>
+        </div>
+        <button type="submit" class="w-full py-3 bg-amber-500 hover:bg-amber-400 font-bold uppercase tracking-wider text-black rounded-xl shadow">Submit Review</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- BOOKING MODAL -->
+  <div id="booking-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-5 relative shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+      <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-gray-500"><i class="fa-solid fa-xmark text-lg"></i></button>
+      <h3 class="font-serif text-xl font-bold text-gray-900">Book Custom Fitting</h3>
+      <form id="consultationForm" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Name *</label>
+          <input type="text" id="booking-name" required placeholder="Full Name" class="w-full border border-gray-300 rounded-xl p-2.5 focus:outline-none focus:border-amber-500">
+        </div>
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">WhatsApp Phone *</label>
+          <input type="tel" id="booking-phone" required placeholder="+91 98765 43210" class="w-full border border-gray-300 rounded-xl p-2.5 focus:outline-none focus:border-amber-500">
+        </div>
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Preferred Date *</label>
+          <input type="date" id="booking-date" required class="w-full border border-gray-300 rounded-xl p-2.5 focus:outline-none focus:border-amber-500">
+        </div>
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Consultation Type *</label>
+          <select id="booking-type" class="w-full border border-gray-300 rounded-xl p-2.5 focus:outline-none focus:border-amber-500">
+            <option value="In-Person Store Visit">In-Person Store Visit (Ajmer)</option>
+            <option value="Video Call Consultation">Video Call Consultation</option>
+            <option value="Home Visit (VIP)">Home Visit (VIP)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Garment Requirement *</label>
+          <textarea id="booking-requirements" rows="2" required placeholder="Wedding Sherwani, Bandhgala..." class="w-full border border-gray-300 rounded-xl p-2.5 focus:outline-none focus:border-amber-500"></textarea>
+        </div>
+        <button type="submit" class="w-full py-3 bg-amber-500 hover:bg-amber-400 font-bold uppercase tracking-wider text-black rounded-xl shadow">Confirm Appointment</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- SEARCH MODAL -->
+  <div id="search-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden p-4 flex flex-col pt-12">
+    <div class="flex justify-end mb-4">
+      <button onclick="toggleSearchModal()" class="text-white text-xl p-2"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="max-w-md w-full mx-auto space-y-3">
+      <div class="relative">
+        <input type="text" id="search-input" onkeyup="handleSearch()" placeholder="Search bandhgalas, kothis, suits..." class="w-full bg-white rounded-2xl py-3.5 px-5 pl-12 text-sm text-gray-900 focus:outline-none shadow-xl">
+        <i class="fa-solid fa-magnifying-glass absolute left-4 top-4 text-amber-600"></i>
+      </div>
+      <div id="search-results" class="bg-white rounded-2xl divide-y divide-gray-100 max-h-96 overflow-y-auto shadow-xl">
+        <p class="p-4 text-xs text-gray-400 text-center">Type above to search menswear...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="fixed top-16 inset-x-4 z-[70] flex flex-col items-center space-y-2 pointer-events-none"></div>
+
+  <!-- APP LOGIC SCRIPT -->
+  <script>
+    let currentActiveProductId = null;
+    let isZoomed = false;
+
+    // Products Data Array
+    const products = [
+      { id: 1, name: "Jet Black Jodhpuri", category: "bandhgala", image: "j1.png", description: "Heritage Jodhpuri coat with classic structured shoulders and royal fitting.", occasion: "Weddings, Receptions, Royal Gala" },
+      { id: 2, name: "Heritage Maroon & Gold Zardozi Wedding kothis", category: "kothis", image: "k1.png", description: "Kothis featuring dense hand-embroidered golden threadwork.", occasion: "Groom Special, Sangeet & Festive Wear" },
+      { id: 3, name: "Midnight Blue with heavy work", category: "bandhgala", image: "j9.jpeg", description: "Festive rich midnight blue bandhgala featuring intricate embroidery on mandarin collar and cuffs.", occasion: "Evening Celebrations, Cocktail & Wedding" },
+      { id: 4, name: "Oxford Blue with heavy work", category: "suit", image: "s1.jpeg", description: "Sharp tailored satin lapel suit crafted from fine wool blend.", occasion: "Reception, Formal Events & Parties" },
+      { id: 5, name: "Emerald Green Asymmetric Indo-Western", category: "coats", image: "c1.png", description: "Modern asymmetric overlap jacket paired with tailored trousers.", occasion: "Sangeet, Mehendi & Festive Nights" },
+      { id: 6, name: "Royal Blue Jodhpuri", category: "bandhgala", image: "j2.png", description: "Heritage Jodhpuri coat with classic structured shoulders and royal fitting.", occasion: "Weddings & Festive Gatherings" },
+      { id: 7, name: "Magenta with heavy work", category: "suit", image: "s3.jpeg", description: "Statement designer suit with fine embroidery and structured silhouette.", occasion: "Sangeet & Evening Functions" },
+      { id: 8, name: "Heritage Baghwa kothis", category: "kothis", image: "k2.png", description: "Traditionally styled kothi crafted to pair with white linen Kurta Pants.", occasion: "Day Weddings, Pooja & Festive Wear" },
+      { id: 9, name: "Ruby Wine Jodhpuri", category: "bandhgala", image: "j3.png", description: "Heritage Jodhpuri coat with classic structured shoulders and royal fitting.", occasion: "Reception & Festive Wear" },
+      { id: 10, name: "Festive Heritage", category: "kothis", image: "k3.png", description: "Traditional handcrafted ethnic jacket wear.", occasion: "Festivals & Family Celebrations" },
+      { id: 11, name: "Off-White Jodhpuri", category: "bandhgala", image: "j4.png", description: "Heritage Jodhpuri coat with classic structured shoulders and royal fitting.", occasion: "Day Weddings & Royal Events" },
+      { id: 12, name: "Raymond Quick Style", category: "giftings", image: "g1.png", description: "The ultimate gift pack of style and sophistication.", occasion: "Corporate & Wedding Gifting" },
+      { id: 13, name: "Raymond Duo Style", category: "giftings", image: "g2.png", description: "Premium shirt and trouser fabric combo gift box.", occasion: "Festive & Wedding Gifting" },
+      { id: 14, name: "Siyaram's festive M-Eclairs", category: "giftings", image: "g3.png", description: "Uncompromising style and premium quality suiting & shirting gift set.", occasion: "Festive Gifting" },
+      { id: 15, name: "Siyaram's M-Life Line", category: "giftings", image: "g4.png", description: "Uncompromising style and premium quality fabric combo.", occasion: "Gifting & Personal Tailoring" },
+      { id: 16, name: "Siyaram's Shubh-Kripa Pack", category: "giftings", image: "g5.png", description: "Traditional auspicious gifting fabric collection.", occasion: "Weddings & Auspicious Occasions" },
+      { id: 17, name: "Siyaram's Soft-Feel Combo", category: "giftings", image: "g6.png", description: "Ultra-soft premium fabric combo gift pack.", occasion: "All-Occasion Gifting" },
+      { id: 18, name: "Siyaram's Premium Safari", category: "Safari Suits", image: "s1.png", description: "Tailored by time, styled by Siyaram's.", occasion: "Formal & Executive Wear" },
+      { id: 19, name: "Raymond Classic Safari", category: "Safari Suits", image: "s2.png", description: "Redefining absolute sophistication in classic safari suiting.", occasion: "Formal & Executive Wear" },
+      { id: 20, name: "Vibrant black with heavy work", category: "bandhgala", image: "j5.jpeg", description: "Heritage Jodhpuri coat with detailed handwork.", occasion: "Evening Weddings & Receptions" },
+      { id: 21, name: "Cream color with Embroidery", category: "bandhgala", image: "j6.jpeg", description: "Heritage Jodhpuri coat with fine thread embroidery.", occasion: "Day Weddings & Engagement" },
+      { id: 22, name: "Off-White with Embroidery", category: "bandhgala", image: "j7.jpeg", description: "Heritage Jodhpuri coat with subtle festive embroidery.", occasion: "Weddings & Festive Occasions" },
+      { id: 23, name: "Heritage Blue with heavy work", category: "bandhgala", image: "j8.jpeg", description: "Heritage Jodhpuri coat with rich royal blue finish.", occasion: "Sangeet & Reception" },
+      { id: 24, name: "Raymonds Premium", category: "giftings", image: "g7.png", description: "The ultimate gift of style and sophistication.", occasion: "Luxury Gifting" },
+      { id: 25, name: "Siyaram's Corduroy", category: "coats", image: "c2.png", description: "The Ultimate Corduroy coat from Siyaram's.", occasion: "Winter Formals & Smart Casuals" },
+      { id: 26, name: "Siyaram's Tuxedo", category: "suit", image: "s4.jpg", description: "Modern tailored silhouettes, premium poly-viscose or wool-blend fabrics.", occasion: "Cocktail, Reception & Black-Tie Events" },
+      { id: 27, name: "Siyaram's Tuxedo", category: "suit", image: "s5.jpg", description: "Modern tailored silhouettes, premium poly-viscose or wool-blend fabrics.", occasion: "Cocktail, Reception & Black-Tie Events" },
+      { id: 28, name: "Siyaram's Tuxedo", category: "suit", image: "s6.jpg", description: "Modern tailored silhouettes, premium poly-viscose or wool-blend fabrics.", occasion: "Cocktail, Reception & Black-Tie Events" },
+      { id: 30, name: "Siyaram's Formals", category: "Formals", image: "f1.png", description: "Cool & comfort formal fabric for all-day sharp looks.", occasion: "Office, Business & Daily Formals" },
+      { id: 31, name: "Siyaram's Tuxedo", category: "suit", image: "s7.png", description: "Modern tailored silhouettes, premium poly-viscose or wool-blend fabrics.", occasion: "Cocktail, Reception & Black-Tie Events" }
+    ];
+
+    let wishlist = JSON.parse(localStorage.getItem('jain_vastralya_wishlist')) || [];
+    let reviews = JSON.parse(localStorage.getItem('jain_vastralya_reviews')) || [
+      { name: "Vikram Singh", rating: 5, comment: "Exquisite Jodhpuri suit fitting for my brother's wedding. Master craftsmanship!", date: "2 days ago" },
+      { name: "Rahul Jain", rating: 5, comment: "Authentic Raymond & Siyaram's retailer in Ajmer. Exceptional service.", date: "1 week ago" }
+    ];
+
+    // Tab Switching Logic
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      const target = document.getElementById(`tab-${tabId}`);
+      if (target) target.classList.add('active');
+
+      document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+        btn.classList.remove('text-amber-600');
+        btn.classList.add('text-gray-400');
+        if (btn.getAttribute('data-tab') === tabId) {
+          btn.classList.remove('text-gray-400');
+          btn.classList.add('text-amber-600');
+        }
+      });
+
+      const container = document.getElementById('app-body-container');
+      if (container) container.scrollTop = 0;
+
+      if (tabId === 'wishlist') renderWishlistItems();
+      if (tabId === 'account') renderReviews();
+    }
+
+    function updateWishlistBadge() {
+      const badge = document.getElementById('app-wishlist-badge');
+      if (badge) badge.textContent = wishlist.length;
+    }
+
+    function toggleWishlist(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      const idx = wishlist.findIndex(item => item.id === productId);
+      if (idx > -1) {
+        wishlist.splice(idx, 1);
+        showToast(`Removed "${product.name}" from wishlist.`);
+      } else {
+        wishlist.push(product);
+        showToast(`Added "${product.name}" to wishlist!`);
+      }
+      localStorage.setItem('jain_vastralya_wishlist', JSON.stringify(wishlist));
+      updateWishlistBadge();
+
+      renderProducts('all');
+      renderHomeFeatured();
+      renderWishlistItems();
+    }
+
+    function renderHomeFeatured() {
+      const grid = document.getElementById('home-featured-grid');
+      if (!grid) return;
+      const featured = products.slice(0, 4);
+      grid.innerHTML = featured.map(p => {
+        const isW = wishlist.some(w => w.id === p.id);
+        return `
+          <div onclick="openProductModal(${p.id})" class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs cursor-pointer flex flex-col justify-between">
+            <div class="relative h-40 bg-gray-100">
+              <img src="${p.image}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=400&q=80'">
+              <button onclick="event.stopPropagation(); toggleWishlist(${p.id});" class="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/90 shadow flex items-center justify-center text-gray-700">
+                <i class="${isW ? 'fa-solid text-red-500' : 'fa-regular'} fa-heart text-xs"></i>
+              </button>
+            </div>
+            <div class="p-3">
+              <span class="text-[9px] font-bold uppercase text-amber-700">${p.category}</span>
+              <h4 class="font-serif font-bold text-xs text-gray-900 line-clamp-1">${p.name}</h4>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderProducts(filter = 'all') {
+      const grid = document.getElementById('product-grid');
+      if (!grid) return;
+      const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+
+      grid.innerHTML = filtered.map(p => {
+        const isW = wishlist.some(w => w.id === p.id);
+        const waUrl = `https://wa.me/919413052930?text=${encodeURIComponent(`Hello Jain Vastralya! I want to inquire about: ${p.name} (Category: ${p.category})`)}`;
+        return `
+          <div onclick="openProductModal(${p.id})" class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="relative h-48 bg-gray-100">
+                <img src="${p.image}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=400&q=80'">
+                <button onclick="event.stopPropagation(); toggleWishlist(${p.id});" class="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/90 shadow flex items-center justify-center text-gray-700">
+                  <i class="${isW ? 'fa-solid text-red-500' : 'fa-regular'} fa-heart text-xs"></i>
+                </button>
+              </div>
+              <div class="p-3">
+                <span class="text-[9px] font-bold uppercase text-amber-700">${p.category}</span>
+                <h4 class="font-serif font-bold text-xs text-gray-900 line-clamp-1">${p.name}</h4>
+                <p class="text-[10px] text-gray-500 line-clamp-1 mt-0.5">${p.description}</p>
+              </div>
+            </div>
+            <div class="p-3 pt-0">
+              <a href="${waUrl}" target="_blank" onclick="event.stopPropagation();" class="w-full py-2 bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-bold uppercase rounded-xl flex items-center justify-center space-x-1">
+                <i class="fa-brands fa-whatsapp text-xs"></i>
+                <span>WhatsApp Inquiry</span>
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterCategory(cat) {
+      document.querySelectorAll('#filter-buttons .filter-btn').forEach(b => {
+        b.classList.remove('bg-amber-500', 'text-black', 'font-bold');
+        b.classList.add('bg-white', 'text-gray-700', 'font-semibold');
+      });
+      event?.currentTarget?.classList?.add('bg-amber-500', 'text-black', 'font-bold');
+      event?.currentTarget?.classList?.remove('bg-white', 'text-gray-700');
+      renderProducts(cat);
+    }
+
+    function renderWishlistItems() {
+      const container = document.getElementById('wishlist-items-container');
+      if (!container) return;
+      if (wishlist.length === 0) {
+        container.innerHTML = `<p class="text-xs text-gray-400 text-center py-10">Your wishlist is empty. Tap the heart icon on any design to save it here.</p>`;
+        return;
+      }
+      container.innerHTML = wishlist.map(item => `
+        <div class="bg-white border border-gray-200 p-3 rounded-2xl flex items-center justify-between shadow-xs">
+          <div class="flex items-center space-x-3 cursor-pointer" onclick="openProductModal(${item.id})">
+            <img src="${item.image}" class="w-12 h-12 object-cover rounded-xl" onerror="this.src='https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=150&q=80'">
+            <div>
+              <h4 class="text-xs font-bold text-gray-900">${item.name}</h4>
+              <span class="text-[10px] text-amber-600 uppercase font-semibold">${item.category}</span>
+            </div>
+          </div>
+          <button onclick="toggleWishlist(${item.id})" class="text-red-500 p-2"><i class="fa-solid fa-trash text-xs"></i></button>
+        </div>
+      `).join('');
+    }
+
+    function openProductModal(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+      currentActiveProductId = productId;
+      const skuCode = `JV-${product.category.substring(0, 2).toUpperCase()}-10${product.id}`;
+      const waUrl = `https://wa.me/919413052930?text=${encodeURIComponent(`Hello Jain Vastralya! I want to inquire about: ${product.name} (SKU: ${skuCode})`)}`;
+
+      const modalBody = document.getElementById('product-modal-body');
+      modalBody.innerHTML = `
+        <div class="space-y-4">
+          <div onclick="openLightbox()" class="relative w-full aspect-[4/3] bg-gray-100 rounded-2xl overflow-hidden cursor-zoom-in">
+            <img src="${product.image}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=600&q=80'">
+            <div class="absolute bottom-2 left-2 bg-black/70 text-white text-[10px] px-2.5 py-1 rounded-full">Tap photo to zoom</div>
+          </div>
+          <div>
+            <span class="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full uppercase">${product.category}</span>
+            <h2 class="font-serif text-xl font-bold text-gray-900 mt-1">${product.name}</h2>
+            <p class="text-xs text-gray-600 mt-1">${product.description}</p>
+          </div>
+          <div class="bg-gray-50 p-3 rounded-xl border border-gray-200 text-xs space-y-1">
+            <p><span class="font-bold">Occasion:</span> ${product.occasion}</p>
+            <p><span class="font-bold">SKU Code:</span> ${skuCode}</p>
+          </div>
+          <div class="space-y-2">
+            <a href="${waUrl}" target="_blank" class="w-full py-3 bg-[#16A34A] text-white font-bold text-xs uppercase tracking-wider rounded-xl flex items-center justify-center space-x-2 shadow">
+              <i class="fa-brands fa-whatsapp text-base"></i>
+              <span>Inquire on WhatsApp</span>
+            </a>
+            <button onclick="closeProductModal(); openBookingModal();" class="w-full py-2.5 bg-gray-100 text-gray-900 font-bold text-xs uppercase tracking-wider rounded-xl">
+              Book Custom Fitting
+            </button>
+          </div>
+        </div>
+      `;
+
+      const modal = document.getElementById('product-detail-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function closeProductModal() {
+      document.getElementById('product-detail-modal').classList.add('hidden');
+      document.getElementById('product-detail-modal').classList.remove('flex');
+    }
+
+    function openLightbox() {
+      const product = products.find(p => p.id === currentActiveProductId);
+      if (!product) return;
+      document.getElementById('lightbox-img').src = product.image;
+      document.getElementById('lightbox-title').textContent = product.name;
+      document.getElementById('lightbox-modal').classList.remove('hidden');
+      document.getElementById('lightbox-modal').classList.add('flex');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox-modal').classList.add('hidden');
+      document.getElementById('lightbox-modal').classList.remove('flex');
+    }
+
+    function toggleLightboxZoom(e) {
+      e.stopPropagation();
+      const img = document.getElementById('lightbox-img');
+      isZoomed = !isZoomed;
+      img.classList.toggle('zoomed', isZoomed);
+    }
+
+    function renderReviews() {
+      const container = document.getElementById('reviewsList');
+      if (!container) return;
+      container.innerHTML = reviews.map(r => `
+        <div class="bg-gray-50 border border-gray-200 p-3 rounded-xl space-y-1">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-bold text-gray-900">${r.name}</h4>
+            <span class="text-amber-500 text-xs">★★★★★</span>
+          </div>
+          <p class="text-xs text-gray-600">${r.comment}</p>
+          <span class="text-[10px] text-gray-400 block">${r.date}</span>
+        </div>
+      `).join('');
+    }
+
+    function showToast(msg) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = "bg-white border border-amber-500 text-gray-900 text-xs px-4 py-2.5 rounded-xl shadow-xl flex items-center space-x-2 animate-bounce";
+      toast.innerHTML = `<i class="fa-solid fa-circle-check text-amber-600"></i> <span>${msg}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 2500);
+    }
+
+    // Modal toggles
+    function openBookingModal() { document.getElementById('booking-modal').classList.remove('hidden'); }
+    function closeBookingModal() { document.getElementById('booking-modal').classList.add('hidden'); }
+    function openReviewModal() { document.getElementById('review-modal').classList.remove('hidden'); }
+    function closeReviewModal() { document.getElementById('review-modal').classList.add('hidden'); }
+    function toggleSearchModal() { document.getElementById('search-modal').classList.toggle('hidden'); }
+
+    function handleSearch() {
+      const val = document.getElementById('search-input').value.toLowerCase();
+      const res = document.getElementById('search-results');
+      if (!val) {
+        res.innerHTML = '<p class="p-4 text-xs text-gray-400 text-center">Type above to search menswear...</p>';
+        return;
+      }
+      const matches = products.filter(p => p.name.toLowerCase().includes(val) || p.category.toLowerCase().includes(val));
+      if (matches.length === 0) {
+        res.innerHTML = '<p class="p-4 text-xs text-gray-400 text-center">No designs found.</p>';
+        return;
+      }
+      res.innerHTML = matches.map(p => `
+        <div onclick="toggleSearchModal(); openProductModal(${p.id});" class="p-3 flex items-center justify-between hover:bg-amber-50 cursor-pointer">
+          <div class="flex items-center space-x-3">
+            <img src="${p.image}" class="w-10 h-10 object-cover rounded-lg" onerror="this.src='https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=100&q=80'">
+            <div>
+              <h4 class="text-xs font-bold text-gray-900">${p.name}</h4>
+              <span class="text-[10px] text-amber-600 uppercase font-semibold">${p.category}</span>
+            </div>
+          </div>
+          <span class="text-xs text-amber-600 font-bold">View</span>
+        </div>
+      `).join('');
+    }
+
+    // Form Submissions
+    document.getElementById('consultationForm')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      showToast("Appointment consultation request saved successfully!");
+      closeBookingModal();
+      e.target.reset();
+    });
+
+    document.getElementById('reviewForm')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('review-name').value;
+      const comment = document.getElementById('review-comment').value;
+      reviews.unshift({ name, rating: 5, comment, date: "Just now" });
+      localStorage.setItem('jain_vastralya_reviews', JSON.stringify(reviews));
+      showToast("Review submitted successfully!");
+      closeReviewModal();
+      renderReviews();
+      e.target.reset();
+    });
+
+    // Initialize App on Load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderHomeFeatured();
+      renderProducts('all');
+      updateWishlistBadge();
+      renderWishlistItems();
+      renderReviews();
+      if (window.lucide) lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
